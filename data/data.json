@@ -5,7 +5,7 @@
     "precio": 6000,
     "categoria": "Accesorios",
     "stock": 15,
-    "img": "./assets/Pulsera-pasador-publi.png"
+    "img": "./assets/img/Pulsera-pasador-publi.png"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "precio": 80000,
     "categoria": "Bags",
     "stock": 4,
-    "img": "./assets/cartera-boho-beige.jpg.jpeg"
+    "img": "./assets/img/cartera-boho-beige.jpg.jpeg"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "precio": 30000,
     "categoria": "Accesorios",
     "stock": 3,
-    "img": "./assets/Billetera-Publi.jpeg"
+    "img": "./assets/img/Billetera-Publi.jpeg"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "precio": 55000,
     "categoria": "Indumentaria",
     "stock": 3,
-    "img": "./assets/Top-preta-publi.jpg.jpeg"
+    "img": "./assets/img/Top-preta-publi.jpg.jpeg"
   },
   {
     "id": 5,
@@ -37,7 +37,7 @@
     "precio": 60000,
     "categoria": "Indumentaria",
     "stock": 5,
-    "img": "./assets/top-musa-publi.jpg.jpeg"
+    "img": "./assets/img/top-musa-publi.jpg.jpeg"
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "precio": 65000,
     "categoria": "Indumentaria",
     "stock": 6,
-    "img":"./assets/Top-duna-publi.jpg.jpeg"
+    "img":"./assets/img/Top-duna-publi.jpg.jpeg"
   },
   {
     "id": 8,
@@ -53,7 +53,7 @@
     "precio": 60000,
     "categoria": "Indumentaria",
     "stock": 4,
-    "img": "./assets/top-sia-publi.jpg.jpeg"
+    "img": "./assets/img/top-sia-publi.jpg.jpeg"
   },
   {
     "id": 9,
@@ -61,7 +61,7 @@
     "precio": 65000,
     "categoria": "Indumentaria",
     "stock": 4,
-    "img": "./assets/falda-publi.jpg.jpeg"
+    "img": "./assets/img/falda-publi.jpg.jpeg"
   },
   {
     "id": 10,
@@ -69,6 +69,6 @@
     "precio": 80000,
     "categoria": "Bags",
     "stock": 3,
-    "img": "./assets/carteraMilanpubli.jpg.jpeg"
+    "img": "./assets/img/carteraMilanpubli.jpg.jpeg"
   }
 ]
