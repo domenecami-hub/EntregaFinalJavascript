@@ -109,14 +109,14 @@ function imprimirElementosEnHTML(listaProductos) {
 
   for (const producto of listaProductos) {
     const { nombre, precio, categoria, stock, img, id } = producto;
-
+    
     const card = document.createElement("div");
     card.classList.add("card");
 
     const estadoStock = stock > 0 ? "Disponible" : "Sin stock";
 
     card.innerHTML = `
-      <img src="${img}" alt="${nombre}">
+      <img src="${img}" alt="${nombre}">      
       <h3>${nombre}</h3>
       <p>Categoría: ${categoria}</p>
       <p>Precio: $${precio}</p>
