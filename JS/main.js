@@ -3,18 +3,16 @@ const productos = [];
 function obtenerCarritoDelStorage() {
   try {
     const carritoGuardado = localStorage.getItem("misProductos") || "[]";
+    const productosCarrito = JSON.parse(carritoGuardado);
 
-    if (carritoGuardado == null) {
+    if (!Array.isArray(productosCarrito)) {
       return [];
     }
-
-    const productosCarrito = JSON.parse(carritoGuardado) ?? [];
 
     return productosCarrito.map((producto) => ({
       ...producto,
       cantidad: producto.cantidad ?? 1
     }));
-
   } catch (error) {
     return [];
   }
@@ -22,11 +20,13 @@ function obtenerCarritoDelStorage() {
 
 const carrito = obtenerCarritoDelStorage();
 
-const vaciarCarrito = document.getElementById("vaciar-carrito");
-const formulario = document.getElementById("formulario");
-const mensaje = document.getElementById("mensajeCarrito");
-const inputBuscar = document.querySelector("#formulario input");
+const inputBuscar = document.getElementById("buscar-producto");
+const botonesCategoria = document.querySelectorAll(".filtro-categoria");
+const contadorProductos = document.getElementById("contador-productos");
 
+let categoriaSeleccionada = "Todos";
+
+// Cargar productos desde JSON o localStorage
 async function cargarProductos() {
   try {
     const respuesta = await fetch("./data/data.json");
@@ -41,7 +41,10 @@ async function cargarProductos() {
     if (productosGuardados !== null) {
       const productosParseados = JSON.parse(productosGuardados);
 
-      if (Array.isArray(productosParseados) && productosParseados.length > 0) {
+      if (
+        Array.isArray(productosParseados) &&
+        productosParseados.length > 0
+      ) {
         productos.push(...productosParseados);
       } else {
         productos.push(...productosJSON);
@@ -52,9 +55,7 @@ async function cargarProductos() {
       guardarProductos();
     }
 
-    imprimirElementosEnHTML(productos);
-    imprimirCarritoEnHTML();
-
+    buscarProductos();
   } catch (error) {
     document.getElementById("productos").textContent =
       "No se pudieron cargar los productos. Intentá nuevamente.";
@@ -68,6 +69,7 @@ async function cargarProductos() {
   }
 }
 
+// Guardar productos y carrito
 function guardarProductos() {
   localStorage.setItem("productos", JSON.stringify(productos));
 }
@@ -76,9 +78,33 @@ function guardarCarrito() {
   localStorage.setItem("misProductos", JSON.stringify(carrito));
 }
 
+// Normalizar texto para buscar sin distinguir mayúsculas ni acentos
+function normalizarTexto(texto) {
+  return String(texto ?? "")
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+// Mostrar las tarjetas de productos
 function imprimirElementosEnHTML(listaProductos) {
   const productosDOM = document.getElementById("productos");
+
+  if (!productosDOM) {
+    return;
+  }
+
   productosDOM.innerHTML = "";
+
+  if (contadorProductos) {
+    contadorProductos.textContent =
+      `${listaProductos.length} ${
+        listaProductos.length === 1
+          ? "producto encontrado"
+          : "productos encontrados"
+      }`;
+  }
 
   if (listaProductos.length === 0) {
     productosDOM.textContent = "No se encontraron productos.";
@@ -100,7 +126,11 @@ function imprimirElementosEnHTML(listaProductos) {
       <p>Precio: $${precio}</p>
       <p>Stock: ${stock}</p>
       <p>Estado: ${estadoStock}</p>
-      <button class="card-boton" data-id="${id}" ${stock <= 0 ? "disabled" : ""}>
+      <button
+        class="card-boton"
+        data-id="${id}"
+        ${stock <= 0 ? "disabled" : ""}
+      >
         Comprar
       </button>
     `;
@@ -115,6 +145,7 @@ function imprimirElementosEnHTML(listaProductos) {
   }
 }
 
+// Agregar productos al carrito y descontar stock
 function agregarProductoAlCarrito(producto) {
   if (producto.stock <= 0) {
     Toastify({
@@ -145,8 +176,8 @@ function agregarProductoAlCarrito(producto) {
   guardarProductos();
   guardarCarrito();
 
-  imprimirElementosEnHTML(productos);
-  imprimirCarritoEnHTML();
+  // Actualizar las tarjetas y los resultados visibles
+  buscarProductos();
 
   Toastify({
     text: `${producto.nombre} agregado al carrito`,
@@ -159,107 +190,54 @@ function agregarProductoAlCarrito(producto) {
   }).showToast();
 }
 
-function imprimirCarritoEnHTML() {
-  const listaCarrito = document.getElementById("listaDeCarrito");
-  listaCarrito.innerHTML = "";
-
-  if (carrito.length === 0) {
-    const item = document.createElement("li");
-    item.textContent = "Tu carrito está vacío.";
-    listaCarrito.appendChild(item);
-  }
-
-  for (const [index, producto] of carrito.entries()) {
-    const item = document.createElement("li");
-    const { nombre, precio, cantidad } = producto;
-
-    item.textContent = `${nombre} × ${cantidad}: $${precio * cantidad} `;
-
-    const botonEliminar = document.createElement("button");
-    botonEliminar.textContent = "Eliminar";
-    botonEliminar.classList.add("btn-eliminar");
-
-    botonEliminar.addEventListener("click", () => {
-      eliminarProductoDelCarrito(index);
-    });
-
-    item.appendChild(botonEliminar);
-    listaCarrito.appendChild(item);
-  }
-}
-
-function restaurarStock(productoCarrito) {
-  const productoOriginal = productos.find(
-    (producto) => producto.id === productoCarrito.id
-  );
-
-  if (productoOriginal) {
-    productoOriginal.stock += productoCarrito.cantidad;
-  }
-}
-
-function eliminarProductoDelCarrito(index) {
-  const productoEliminado = carrito[index];
-
-  if (!productoEliminado) {
+// Buscar por nombre o categoría y aplicar el filtro seleccionado
+function buscarProductos() {
+  if (!inputBuscar) {
+    imprimirElementosEnHTML(productos);
     return;
   }
 
-  restaurarStock(productoEliminado);
-  carrito.splice(index, 1);
+  const texto = normalizarTexto(inputBuscar.value);
 
-  guardarProductos();
-  guardarCarrito();
+  const productosFiltrados = productos.filter((producto) => {
+    const nombre = normalizarTexto(producto.nombre);
+    const categoria = normalizarTexto(producto.categoria);
 
-  imprimirElementosEnHTML(productos);
-  imprimirCarritoEnHTML();
+    const coincideTexto =
+      nombre.includes(texto) || categoria.includes(texto);
 
-  mensaje.textContent = "Producto eliminado del carrito.";
-}
+    const coincideCategoria =
+      categoriaSeleccionada === "Todos" ||
+      categoria === normalizarTexto(categoriaSeleccionada);
 
-vaciarCarrito.addEventListener("click", () => {
-  for (const producto of carrito) {
-    restaurarStock(producto);
-  }
-
-  carrito.length = 0;
-
-  guardarProductos();
-  guardarCarrito();
-
-  imprimirElementosEnHTML(productos);
-  imprimirCarritoEnHTML();
-
-  mensaje.textContent = "Carrito vaciado.";
-});
-
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
-  buscarProductos();
-});
-
-inputBuscar.addEventListener("input", buscarProductos);
-
-function buscarProductos() {
-  const texto = inputBuscar.value
-    .toLowerCase()
-    .trim()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .includes(texto)
-  );
+    return coincideTexto && coincideCategoria;
+  });
 
   imprimirElementosEnHTML(productosFiltrados);
 }
 
+// Escuchar la búsqueda mientras se escribe
+if (inputBuscar) {
+  inputBuscar.addEventListener("input", buscarProductos);
+}
+
+// Escuchar los botones de categoría
+botonesCategoria.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    categoriaSeleccionada = boton.dataset.categoria || "Todos";
+
+    botonesCategoria.forEach((otroBoton) => {
+      otroBoton.classList.toggle("activo", otroBoton === boton);
+    });
+
+    buscarProductos();
+  });
+});
+
+// Iniciar la página
 cargarProductos();
 
+// Mensaje de bienvenida
 setTimeout(() => {
   Swal.fire({
     title: "¡Bienvenido a Zadira! 👜",

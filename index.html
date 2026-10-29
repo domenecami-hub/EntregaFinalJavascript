@@ -1,45 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../CSS/style.css">
-        <link rel="stylesheet" href="../CSS/carrito.css">
-        <script src="../JS/carrito.js" defer></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-        
-        <title>Zadira</title>
-    </head>
-    <body>
-        <header>
-            <h1 id="titulo">Zadira</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" class="link">Inicio</a></li>
-                    <li><a href="./index.html" class="link">Productos</a></li>
-                    <li><a href="./pages/carrito.html" class="link">Carrito</a></li>
-                </ul>
-            </nav>  
-        </header>   
-        <main>
-            <h2>Productos</h2>
-            <form id="formulario">
-                <input type="text" placeholder="Buscar producto">
-                <input type="submit" value="Buscar">
-            </form>
-            <section id="productos" class="productos"></section>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <section id="carrito" class="carrito">
-                <h2>Carrito de compras</h2>
-                <ul id="listaDeCarrito"></ul>
-                <p id="mensajeCarrito"></p>
-                <button id="vaciar-carrito">Vaciar carrito</button>
-            </section>
-        </main>
-        <footer>
-            <p>&copy; 2024 Zadira. Todos los derechos reservados.</p>
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </body>  
+    <title>Zadira</title>
+
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    >
+
+    <script src="./JS/main.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1 id="titulo">Zadira</h1>
+
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="link">Inicio</a></li>
+                <li><a href="#productos" class="link">Productos</a></li>
+                <li><a href="./pages/carrito.html" class="link">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="busqueda-productos">
+            <p class="subtitulo-busqueda">ENCONTRÁ TU FAVORITO</p>
+
+            <h2>¿Qué estás buscando?</h2>
+
+            <p class="descripcion-busqueda">
+                Explorá nuestra colección y encontrá esa pieza especial.
+            </p>
+
+            <div class="buscador-contenedor">
+                <span aria-hidden="true">⌕</span>
+
+                <input
+                    type="search"
+                    id="buscar-producto"
+                    placeholder="Buscar carteras, billeteras, tops..."
+                    aria-label="Buscar productos"
+                    autocomplete="off"
+                >
+            </div>
+
+            <div
+                class="filtros-categoria"
+                aria-label="Filtrar por categoría"
+            >
+                <button
+                    type="button"
+                    class="filtro-categoria activo"
+                    data-categoria="Todos"
+                >
+                    Todos
+                </button>
+
+                <button
+                    type="button"
+                    class="filtro-categoria"
+                    data-categoria="Bags"
+                >
+                    Carteras
+                </button>
+
+                <button
+                    type="button"
+                    class="filtro-categoria"
+                    data-categoria="Accesorios"
+                >
+                    Accesorios
+                </button>
+
+                <button
+                    type="button"
+                    class="filtro-categoria"
+                    data-categoria="Indumentaria"
+                >
+                    Indumentaria
+                </button>
+            </div>
+
+            <p id="contador-productos" aria-live="polite"></p>
+        </section>
+
+        <section id="productos" class="productos"></section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Zadira. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 </html>

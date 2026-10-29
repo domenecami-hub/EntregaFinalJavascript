@@ -99,3 +99,126 @@ footer {
   padding: 10px;
   text-align: center;
 }
+.busqueda-productos {
+    max-width: 850px;
+    margin: 45px auto 35px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.subtitulo-busqueda {
+    margin-bottom: 10px;
+    color: #9B7168;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.busqueda-productos h2 {
+    margin: 10px 0;
+    color: #7B403A;
+    font-size: 30px;
+}
+
+.descripcion-busqueda {
+    margin-bottom: 25px;
+    color: #806B63;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.buscador-contenedor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 18px;
+    border: 1px solid #D8C3B8;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador-contenedor:focus-within {
+    border-color: #7B403A;
+    box-shadow: 0 0 0 3px rgba(123, 64, 58, 0.10);
+}
+
+.buscador-contenedor span {
+    color: #7B403A;
+    font-size: 28px;
+}
+
+#buscar-producto {
+    width: 100%;
+    min-width: 0;
+    padding: 16px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #4A3430;
+    font: inherit;
+    font-size: 15px;
+}
+
+#buscar-producto::placeholder {
+    color: #9B8A83;
+}
+
+.filtros-categoria {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 24px 0 18px;
+}
+
+.filtro-categoria {
+    padding: 10px 18px;
+    border: 1px solid #D8C3B8;
+    border-radius: 25px;
+    background-color: #FFFFFF;
+    color: #7B403A;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filtro-categoria:hover,
+.filtro-categoria.activo {
+    border-color: #7B403A;
+    background-color: #7B403A;
+    color: #FFFFFF;
+}
+
+#contador-productos {
+    margin: 15px 0 25px;
+    color: #806B63;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .busqueda-productos {
+        margin-top: 30px;
+        padding: 0 16px;
+    }
+
+    .busqueda-productos h2 {
+        font-size: 25px;
+    }
+
+    .descripcion-busqueda {
+        font-size: 14px;
+    }
+
+    .filtros-categoria {
+        gap: 8px;
+    }
+
+    .filtro-categoria {
+        padding: 9px 13px;
+        font-size: 13px;
+    }
+}
