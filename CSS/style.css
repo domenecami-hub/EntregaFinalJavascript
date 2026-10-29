@@ -13,12 +13,6 @@ body {
   min-height: 100dvh;
 }
 
-header h1 {
-  text-align: center;
-  color: #7B403A;
-  font-size: 5rem;
-}
-
 header {
   padding: 15px 30px 20px;
 }
@@ -94,7 +88,6 @@ nav ul li .link:focus-visible {
     font-size: 0.9rem;
   }
 }
-
 
 main {
   flex: 1;
