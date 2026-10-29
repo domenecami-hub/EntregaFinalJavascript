@@ -26,7 +26,6 @@ const contadorProductos = document.getElementById("contador-productos");
 
 let categoriaSeleccionada = "Todos";
 
-// Cargar productos desde JSON o localStorage
 async function cargarProductos() {
   try {
     const respuesta = await fetch("./data/data.json");
@@ -69,7 +68,6 @@ async function cargarProductos() {
   }
 }
 
-// Guardar productos y carrito
 function guardarProductos() {
   localStorage.setItem("productos", JSON.stringify(productos));
 }
@@ -78,7 +76,6 @@ function guardarCarrito() {
   localStorage.setItem("misProductos", JSON.stringify(carrito));
 }
 
-// Normalizar texto para buscar sin distinguir mayúsculas ni acentos
 function normalizarTexto(texto) {
   return String(texto ?? "")
     .toLowerCase()
@@ -87,7 +84,6 @@ function normalizarTexto(texto) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-// Mostrar las tarjetas de productos
 function imprimirElementosEnHTML(listaProductos) {
   const productosDOM = document.getElementById("productos");
 
@@ -145,7 +141,6 @@ function imprimirElementosEnHTML(listaProductos) {
   }
 }
 
-// Agregar productos al carrito y descontar stock
 function agregarProductoAlCarrito(producto) {
   if (producto.stock <= 0) {
     Toastify({
@@ -176,7 +171,6 @@ function agregarProductoAlCarrito(producto) {
   guardarProductos();
   guardarCarrito();
 
-  // Actualizar las tarjetas y los resultados visibles
   buscarProductos();
 
   Toastify({
@@ -190,7 +184,6 @@ function agregarProductoAlCarrito(producto) {
   }).showToast();
 }
 
-// Buscar por nombre o categoría y aplicar el filtro seleccionado
 function buscarProductos() {
   if (!inputBuscar) {
     imprimirElementosEnHTML(productos);
@@ -216,12 +209,10 @@ function buscarProductos() {
   imprimirElementosEnHTML(productosFiltrados);
 }
 
-// Escuchar la búsqueda mientras se escribe
 if (inputBuscar) {
   inputBuscar.addEventListener("input", buscarProductos);
 }
 
-// Escuchar los botones de categoría
 botonesCategoria.forEach((boton) => {
   boton.addEventListener("click", () => {
     categoriaSeleccionada = boton.dataset.categoria || "Todos";
@@ -234,10 +225,8 @@ botonesCategoria.forEach((boton) => {
   });
 });
 
-// Iniciar la página
 cargarProductos();
 
-// Mensaje de bienvenida
 setTimeout(() => {
   Swal.fire({
     title: "¡Bienvenido a Zadira! 👜",
