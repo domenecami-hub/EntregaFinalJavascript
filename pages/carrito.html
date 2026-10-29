@@ -3,32 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/style.css">
-    <script src="../JS/carrito.js" defer></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="../js/carrito.js" defer></script>
     <title>Zadira</title>
-    
 </head>
-    <body>
-        <header>
-            <h1 id="titulo">Zadira</h1>
-            <nav>
-                <ul>
-                    <li><a href="../index.html" class="link">Inicio</a></li>
-                    <li><a href="../index.html#productos" class="link">Productos</a></li>
-                    <li><a href="#" class="link">Carrito</a></li>
-                </ul>
-            </nav>  
-        </header>
-        <main>
-            <h2>Carrito de compras</h2>
+<body class="pagina-carrito">
+
+    <header>
+        <h1 id="titulo">Zadira</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html" class="link">Inicio</a></li>
+                <li><a href="../index.html#productos" class="link">Productos</a></li>
+                <li><a href="#" class="link">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-carrito">
+        <section class="encabezado-carrito">
+            <p class="subtitulo-carrito">TU SELECCIÓN · ZADIRA</p>
+            <h2>Tu carrito</h2>
+            <p>Esas piezas especiales que elegiste para vos.</p>
+        </section>
+
+        <div class="contenido-carrito">
+            <section class="productos-carrito">
+                <h3>Productos seleccionados</h3>
                 <ul id="listaDeCarrito"></ul>
-            <p id="total-carrito"></p>
-            <button id="vaciar-carrito">Vaciar carrito</button>
-            <button id="continuar-compra">Continuar con la compra</button>
-        </main>
-        <footer>
-            <p>&copy; 2024 Zadira. Todos los derechos reservados.</p>
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </body>
+
+                <a href="../index.html#productos" class="seguir-comprando">
+                    ← Seguir comprando
+                </a>
+            </section>
+
+            <aside class="resumen-carrito">
+                <h3>Resumen de compra</h3>
+
+                <p class="texto-envio">
+                    Envío gratis en compras superiores a $100.000.
+                </p>
+
+                <div class="linea-resumen">
+                    <span>Subtotal</span>
+                    <p id="total-carrito">$0</p>
+                </div>
+
+                <button id="continuar-compra" class="boton-finalizar">
+                    Finalizar compra
+                </button>
+
+                <button id="vaciar-carrito" class="boton-vaciar">
+                    Vaciar carrito
+                </button>
+
+                <p class="nota-carrito">
+                    Gracias por elegir Zadira.
+                </p>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Zadira. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 </html>

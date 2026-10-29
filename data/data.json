@@ -20,7 +20,7 @@
     "nombre": "Billetera tipo sobre",
     "precio": 30000,
     "categoria": "Accesorios",
-    "stock": 1,
+    "stock": 3,
     "img": "./assets/Billetera-Publi.jpeg"
   },
   {
@@ -44,7 +44,7 @@
     "nombre": "Top Duna",
     "precio": 65000,
     "categoria": "Indumentaria",
-    "stock": 2,
+    "stock": 6,
     "img": "./assets/top-duna-publi.jpg.jpeg"
   },
   {
@@ -52,7 +52,7 @@
     "nombre": "Top Sia",
     "precio": 60000,
     "categoria": "Indumentaria",
-    "stock": 0,
+    "stock": 4,
     "img": "./assets/top-sia-publi.jpg.jpeg"
   },
   {
@@ -60,7 +60,7 @@
     "nombre": "Mini falda",
     "precio": 65000,
     "categoria": "Indumentaria",
-    "stock": 2,
+    "stock": 4,
     "img": "./assets/falda-publi.jpg.jpeg"
   },
   {
