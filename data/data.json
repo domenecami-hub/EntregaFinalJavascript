@@ -45,7 +45,7 @@
     "precio": 65000,
     "categoria": "Indumentaria",
     "stock": 6,
-    "img": "./assets/top-duna-publi.jpg.jpeg"
+    "img":"./assets/Top-duna-publi.jpg.jpeg"
   },
   {
     "id": 8,
