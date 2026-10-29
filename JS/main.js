@@ -16,7 +16,10 @@ function obtenerCarritoDelStorage() {
   } catch (error) {
     return [];
   }
-}
+   finally {
+    // Finaliza el proceso de carga.
+  }
+  }
 
 const carrito = obtenerCarritoDelStorage();
 
